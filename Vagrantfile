@@ -27,7 +27,7 @@ Vagrant.configure("2") do |config|
   ##
   # Network Configuration
   #
-  config.vm.network "private_network", ip: "192.168.30.1"
+  config.vm.network "private_network", ip: "192.168.30.10"
 
   ##
   # Share code repository to webroot

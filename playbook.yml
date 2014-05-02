@@ -10,7 +10,6 @@
     - provision/settings.yml
 
   tasks:
-    - debug: var=ps
 
     - name: "General - Update aptitude cache"
       apt: update_cache=yes cache_valid_time=3600
@@ -40,16 +39,36 @@
         - apache2-dev
         - mysql-server
         - mysql-client
+        - php5
+        - php5-mysql
+        - php-apc
+        - php5-xmlrpc
+        - php-soap
+        - php5-gd
+        - nodejs
         - sendmail
         - unzip
         - python-mysqldb
         - curl
+        - redis-server
+        - rubygems
 
     ##
     # Copy PHP email script.
     #
-    - name: "Copy PHP email script"
+    - name: "PHP | Create email dir"
+      action: file path=/home/vagrant/mail state=directory
+
+    - name: "PHP | Copy email script"
       action: template src=provision/sendmail.php dest=/home/vagrant/mail/sendmail.php
+
+    - name: PHP | Install PHP PEAR
+      action: apt pkg=php-pear state=installed
+      tags: drush
+
+    - name: PHP | Update PEAR
+      action: command pear upgrade-all
+      tags: drush
 
     ##
     # MySQL database setup, this does the equivalent of mysql_secure_installation.
@@ -93,6 +112,40 @@
     - name: "MySQL - Remove the MySQL test database"
       action: mysql_db db=test state=absent
       tags: common
+
+    ##
+    # Drush install.
+    #
+    - name: Drush | Setup PEAR channel
+      action: command pear channel-discover pear.drush.org creates=/usr/share/php/.channels/pear.drush.org.reg
+      tags: drush
+
+    - name: Drush | Install drush
+      action: command pear install drush/drush creates=/usr/bin/drush
+      tags: drush
+
+    - name: Drush | Run drush once so it downloads it's dependencies
+      action: command drush
+      tags: drush
+
+    ##
+    # CSS compiling tools.
+    #
+    - name: CSS | Install SASS
+      action: command gem install sass creates=/usr/local/bin/sass
+      tags: css
+
+    - name: CSS | Install Susy (no more --pre required as it is 1.0 now)
+      action: command gem install susy
+      tags: css
+
+    - name: CSS | Install Compass
+      action: command gem install compass creates=/usr/local/bin/compass
+      tags: css
+
+    - name: CSS | Install Aurora (which will install breakpoint, sass-buttons, respond-to)
+      action: command gem install compass-aurora
+      tags: css
 
     ##
     # Apache2 setup.
