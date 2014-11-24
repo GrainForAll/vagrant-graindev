@@ -1,25 +1,21 @@
 ## Grain LAMP Stack
 
+### Installation ###
+
+1. Create a folder (or symlink to your prefered web directory) named `www` adjacent to `Vagrantfile`.
+2. Enter `vagrant up`  to configure and launch the machine.
+3. Enter the following line in your local `/etc/hosts` file to map a working hostname to the Vagrant box's IP address: `192.168.30.10 graindev`
+
+### Usage ###
+
 IP: 192.168.30.10
+(Apache is running on port 80)
 
 SSH Username: vagrant
 SSH Password: vagrant
 
 MySQL Username: root
 MySQL Password: vagrant
+(use an SSH tunnel to connect to MySQL)
 
-Apache is configured with a variable document root, so that projects located at:
-
-    /home/username/www/project1
-    /home/username/www/project2
-    /home/username/www/project3
-
-can be accessed at:
-
-    http://username.project1.example.com/
-    http://username.project2.example.com/
-    http://username.project3.example.com/
-
-`./www` is mapped to `/var/www` on the virtual machine – creating a symlink
-to your website files will allow you to browse and execute them at the IP
-listed above.
+You can also enter `vagrant ssh` to SSH into the machine.

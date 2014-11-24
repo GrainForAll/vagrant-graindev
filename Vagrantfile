@@ -31,7 +31,7 @@ Vagrant.configure("2") do |config|
 
   ##
   # Share code repository to webroot
-  #
-  config.vm.synced_folder "./www/", "/var/www", owner: "root", group: "root"
+  #, owner: "root", group: "root"
+  config.vm.synced_folder "./www/", "/var/www"
 
 end

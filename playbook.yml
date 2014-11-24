@@ -45,7 +45,6 @@
         - php5-xmlrpc
         - php-soap
         - php5-gd
-        - nodejs
         - sendmail
         - unzip
         - python-mysqldb
@@ -64,11 +63,11 @@
 
     - name: PHP | Install PHP PEAR
       action: apt pkg=php-pear state=installed
-      tags: drush
+      tags: pear
 
     - name: PHP | Update PEAR
       action: command pear upgrade-all
-      tags: drush
+      tags: pear
 
     ##
     # MySQL database setup, this does the equivalent of mysql_secure_installation.
