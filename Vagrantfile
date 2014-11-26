@@ -1,16 +1,16 @@
 Vagrant.configure("2") do |config|
 
   # VirtualBox
-  config.vm.provider "virtualbox" do |v|
+  #config.vm.provider "virtualbox" do |v|
     config.vm.box = "precise64"
     config.vm.box_url = "http://files.vagrantup.com/precise64.box"
-  end
+  #end
 
   # VMWare Fusion
-  config.vm.provider "vmware_fusion" do |v|
-    config.vm.box = "precise64_vmware"
-    config.vm.box_url = "http://files.vagrantup.com/precise64_vmware.box"
-  end
+  #config.vm.provider "vmware_fusion" do |v|
+  #  config.vm.box = "precise64_vmware"
+  #  config.vm.box_url = "http://files.vagrantup.com/precise64_vmware.box"
+  #end
 
   ##
   # Ansible
